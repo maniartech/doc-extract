@@ -1,0 +1,47 @@
+<html>
+    <head>
+        <title>API Generator</title>
+        <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+        <META HTTP-EQUIV="Expires" CONTENT="-1">
+        <script src="../lib/externals/jquery.js" type="text/javascript"></script>
+        <script src="../node_modules/xregexp/xregexp-all.js" type="text/javascript"></script>
+        <script src="../lib/externals/framework.factory.all.js" type="text/javascript"></script>
+        <script src="../lib/doc-extract.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            $(function() {
+                $.ajax({
+                    url: '../lib/webdoodling.js',
+                    dataType: 'text',
+                    success: function(data) {
+                        var parser = new DocExtract.Extractor(data, true),
+                            item, key,
+                            classItems = [], otherItems = [],
+                            output;
+
+                        parser.extract();
+                        output = JSON.stringify(parser.output, null, 2);
+                        output = output.replace('/\\n/g', '\n');
+                        $('#doc').text(output);
+                        console.log(parser.output);
+                        window.wd = parser.output.webDoodling;
+                        for (key in parser.output.webDoodling) {
+                            item = parser.output.webDoodling[key];
+                            if (item.type === "class") {
+                                classItems.push(item);
+                                //console.log(item.class);
+                            }
+                            else {
+                                otherItems.push(item);
+                            }
+                        }
+                    }
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <h1>Documentation</h1>
+        <pre id="doc">
+        </pre>
+    </body>
+</html>
