@@ -10,7 +10,7 @@
         <script type="text/javascript">
             $(function() {
                 $.ajax({
-                    url: '../lib/webdoodling.js',
+                    url: 'webdoodling.js?' + (new Date()).getTime(),
                     dataType: 'text',
                     success: function(data) {
                         var parser = new DocExtract.Extractor(data, true),
@@ -22,7 +22,8 @@
                         output = JSON.stringify(parser.output, null, 2);
                         output = output.replace('/\\n/g', '\n');
                         $('#doc').text(output);
-                        console.log(parser.output);
+                        console.log(parser.output)
+                        console.log(parser.output.webDoodling.Timeline);
                         window.wd = parser.output.webDoodling;
                         for (key in parser.output.webDoodling) {
                             item = parser.output.webDoodling[key];

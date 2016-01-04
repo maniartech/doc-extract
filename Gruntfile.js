@@ -8,7 +8,9 @@ var src = [
     //handler classes
     'src/handlers/extends/doc-class-handler.js',
     'src/handlers/extends/doc-field-handler.js',
-    'src/handlers/extends/doc-function-handler.js'
+    'src/handlers/extends/doc-function-handler.js',
+
+    'src/register-handlers.js',
 ];
 
 console.log("Ready to process", src.length, "source files.\n");

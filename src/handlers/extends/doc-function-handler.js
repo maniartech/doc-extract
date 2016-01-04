@@ -9,9 +9,11 @@
                 option = tagItem.option,
                 value = tagItem.value,
                 signature, className,
+                i,
                 tags = {
                     "constructor": true,
                     "function": true,
+                    "callback": true,
                     "event": true,
                     "param": true,
                     "example": true,
@@ -22,6 +24,7 @@
                 switch(tag) {
                     case "function":
                     case "constructor":
+                    case "callback":
                         if (!comment.name && value) {
                             comment.name = value.substring(value.lastIndexOf(".") + 1, value.indexOf("("));
                         }
@@ -71,7 +74,7 @@
                         this.current.example = value;
                         break;
                     case "memberOf":
-                        if (comment.type === "function" || comment.type === "constructor") {
+                        if (comment.type === "function" || comment.type === "constructor" || comment.type === "callback") {
                             for (i=0; i<comment.overloads.length; i += 1) {
                                 signature = comment.overloads[i].signature;
                                 className = value.substring(value.lastIndexOf(".")+1);
